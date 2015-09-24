@@ -1,5 +1,25 @@
 %header.navbar.navbar-default.navbar-static-top
   .container
     .navbar-header
+      = link_to "Test", root_path, id: "logo", class: 'navbar-brand'
+      .small-screen-controls
+        %button.navbar-toggle.collapsed{"data-toggle" => "collapse", "data-target" => "#navbar", "aria-expanded" => "false"}
+          %span.sr-only="Toggle navigation"
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
     #navbar.navbar-collapse.collapse{"aria-expanded" => "false"}
-   
+      %ul.nav.navbar-nav
+        %li= link_to "Home", root_path
+        - if signed_in?
+          %li#fat-menu.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              Account
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to "Profile", "#"
+              %li.divider
+              %li
+                = link_to "Sign out", destroy_user_session_path, :method => :delete
+        - else
+          %li= link_to "Sign in", new_user_session_path
