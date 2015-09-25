@@ -12,5 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require firebase
+//= require react
+//= require react_ujs
+//= require reactfire.min
+//= require components
 //= require_tree .

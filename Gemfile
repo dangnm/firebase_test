@@ -52,6 +52,8 @@ gem 'twilio-ruby', '~> 4.2.1'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
+gem 'firebase'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
