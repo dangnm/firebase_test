@@ -1,28 +1,21 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a demo how to use firebase.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Init DB: 
+    * edit ./config/database.yml   
+    * run rake db:create
+    * run rake db:migrate
+* Config environment variables: edit ./.env
+* Run app at local
+    * Run rails s
+    * Notification: The test notification will be shown at the index page. We can go to index page by clicking on home menu
+    * Signup a new account: 
+        * We sign up a new account by clicking on sign up menu.
+        * Enter your real phone number. If the phone number does not exist or is duplicated, an error will be shown.a
+        * After clicking sign up, we will see the passcode sent to your phone.
+* Source code
+    * Notification components: ./app/assets/javascripts/components/notifications.js.jsx
+    * Registration logics: 
+        * ./app/controllers/registrations_controller.rb
+        * ./app/models/user.rb
