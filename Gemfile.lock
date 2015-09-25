@@ -73,6 +73,7 @@ GEM
     firebase (0.2.4)
       httpclient
       json
+    firebase_token_generator (2.0.0)
     haml (4.0.7)
       tilt
     haml-rails (0.5.1)
@@ -200,6 +201,7 @@ DEPENDENCIES
   devise (>= 3.2.1)
   dotenv-rails
   firebase
+  firebase_token_generator
   haml-rails
   jasmine
   jbuilder (~> 1.2)

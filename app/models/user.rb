@@ -1,3 +1,5 @@
+require "firebase_token_generator"
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -17,8 +19,11 @@ class User < ActiveRecord::Base
 
   def created_user_notification
     begin
+      generator = Firebase::FirebaseTokenGenerator.new(ENV['FIREBASE_SECRET'])
+      payload = {:uid => "1"}
+      token = generator.create_token(payload)
       base_uri = ENV['FIREBASE_URI']
-      firebase = Firebase::Client.new(base_uri)
+      firebase = Firebase::Client.new(base_uri, token)
       response = firebase.push(NEW_USER_NOTIFICATION, {
         phone_number: self.phone_number,
         created_at: Time.current

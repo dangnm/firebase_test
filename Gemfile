@@ -54,6 +54,8 @@ gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
 gem 'firebase'
 
+gem 'firebase_token_generator'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
