@@ -48,6 +48,10 @@ gem 'webvtt-ruby'
 
 gem 'react-rails', '~> 1.0'
 
+gem 'twilio-ruby', '~> 4.2.1'
+
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -67,4 +71,4 @@ end
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'debugger', group: [:development, :test]

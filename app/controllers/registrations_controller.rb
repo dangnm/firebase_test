@@ -5,8 +5,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   def build_resource(hash=nil)
     super
-    self.resource.password = "ab12cd12";
-    self.resource.password_confirmation = "ab12cd12";
+    if hash != nil && !hash.empty?
+      password = "ab12cd12"
+      self.resource.password = password;
+      self.resource.password_confirmation = password;
+    end
+    
   end
 
 end

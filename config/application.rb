@@ -19,5 +19,10 @@ module FirebaseTest
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    Twilio.configure do |config|
+      config.account_sid = ENV['TWILIO_SID']
+      config.auth_token = ENV['TWILIO_TOKEN']
+    end
   end
 end
