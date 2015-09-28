@@ -17,13 +17,14 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  encrypted_pin_code     :string(255)      default(""), not null
+#  role                   :string(255)
 #
 
-require "firebase_token_generator"
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  include ValidationPolicy
+  include CustomPolicy
+  ADMIN = "ADMIN"
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -41,6 +42,15 @@ class User < ActiveRecord::Base
       return user
     end
     nil
+  end
+
+  def make_admin!
+    self.role = ADMIN
+    save
+  end
+
+  def is_admin?
+    role == ADMIN
   end
 
   def self.generate_password
@@ -61,7 +71,11 @@ class User < ActiveRecord::Base
   end
 
   def valid_pin_code?(code)
-    BCrypt::Password.new(self.encrypted_pin_code) == code
+    begin
+      BCrypt::Password.new(self.encrypted_pin_code) == code
+    rescue => e
+      return false
+    end
   end
 
   def email_required?

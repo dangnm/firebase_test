@@ -1,4 +1,6 @@
 FirebaseTest::Application.routes.draw do
+  get "admin/products"
+  get "admin/users"
   get "home/index"
   devise_for :users, :controllers => {:registrations => "registrations"}
   # The priority is based upon order of creation: first created -> highest priority.
@@ -9,6 +11,12 @@ FirebaseTest::Application.routes.draw do
 
   mount API => '/api/'
   
+  resources 'admin' do
+    collection do
+      get 'users'
+      get 'products'
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

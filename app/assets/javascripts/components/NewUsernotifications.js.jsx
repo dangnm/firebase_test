@@ -1,4 +1,4 @@
-var Notifications = React.createClass({
+var NewUserNotifications = React.createClass({
   mixins: [ReactFireMixin],
   getInitialState: function() {
     return {message: "", hasNewItem: false};

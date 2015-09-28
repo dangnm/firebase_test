@@ -1,5 +1,5 @@
-module ValidationPolicy
-  def apply_validation_policy(policy)
+module CustomPolicy
+  def apply_custom_policy(policy)
     self.singleton_class.class_eval do
       include policy
     end

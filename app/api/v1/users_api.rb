@@ -15,8 +15,8 @@ module V1
                                   :password => User.generate_password,
                                   :pin_code => User.generate_pin_code
                                 });
-        user.apply_validation_policy User::TwilioEmailValidationPolicy
-        user.apply_validation_policy User::NewUserNotificationPolicy
+        user.apply_custom_policy User::TwilioEmailValidationPolicy
+        user.apply_custom_policy User::NewUserNotificationPolicy
         user.save
         return {
           id: user.id

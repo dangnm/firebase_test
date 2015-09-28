@@ -17,6 +17,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  encrypted_pin_code     :string(255)      default(""), not null
+#  role                   :string(255)
 #
 
 require 'test_helper'

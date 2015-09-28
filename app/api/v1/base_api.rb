@@ -12,6 +12,7 @@ module V1
 
     mount Auth
     mount UsersApi
+    mount ProductsApi
   end
 
 end

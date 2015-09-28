@@ -17,6 +17,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  encrypted_pin_code     :string(255)      default(""), not null
+#  role                   :string(255)
 #
 
 FactoryGirl.define do
@@ -29,8 +30,8 @@ FactoryGirl.define do
     password_confirmation '12345678'
 
     callback(:after_build) do |user|
-      user.apply_validation_policy User::TwilioEmailValidationPolicy
-      user.apply_validation_policy User::NewUserNotificationPolicy
+      user.apply_custom_policy User::TwilioEmailValidationPolicy
+      user.apply_custom_policy User::NewUserNotificationPolicy
     end
     
   end

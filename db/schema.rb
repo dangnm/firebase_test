@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927162359) do
+ActiveRecord::Schema.define(version: 20150928065335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20150927162359) do
   add_index "api_keys", ["access_token"], name: "index_api_keys_on_access_token", unique: true, using: :btree
   add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
 
+  create_table "products", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: ""
     t.string   "encrypted_password",     default: "", null: false
@@ -43,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150927162359) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "encrypted_pin_code",     default: "", null: false
+    t.string   "role"
   end
 
   add_index "users", ["phone_number"], name: "index_users_on_phone_number", unique: true, using: :btree
