@@ -6,6 +6,7 @@ This is a demo how to use firebase.
     * edit ./config/database.yml   
     * run rake db:create
     * run rake db:migrate
+    * run rake db:test:prepare
 * Config environment variables: edit ./.env
 * Run app at local
     * Run rails s
@@ -15,7 +16,18 @@ This is a demo how to use firebase.
         * Enter your real phone number. If the phone number does not exist or is duplicated, an error will be shown.a
         * After clicking sign up, we will see the passcode sent to your phone.
 * Source code
-    * Notification components: ./app/assets/javascripts/components/notifications.js.jsx
+    * Javascript components for notifications & lists:
+        * ./app/assets/javascripts/components/*
+    * REST APIs:
+        * ./app/api/v1/*.rb
     * Registration logics: 
         * ./app/controllers/registrations_controller.rb
         * ./app/models/user.rb
+    * Notification & SMS model logics:
+        * ./app/models/product/*
+        * ./app/models/user/*
+    * 3rd party logics: 
+        * ./lib/firebase_wrapper/*
+        * ./lib/twilio_wrapper/*
+    * REST APIs test cases:
+        * ./spec/v1/*
