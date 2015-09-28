@@ -34,7 +34,7 @@ var Users = React.createClass({
   
     return (
       <div>
-        <NewUserNotifications onNewUserAddedRealtime={this.handleNewUserAddedRealtime} />
+        <UserNewNotifications onNewUserAddedRealtime={this.handleNewUserAddedRealtime} />
         <table className={"table"} >
           <thead>
             <tr>
