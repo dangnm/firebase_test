@@ -1,51 +1,71 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string(255)      default("")
+#  encrypted_password     :string(255)      default(""), not null
+#  phone_number           :string(255)      default(""), not null
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  encrypted_pin_code     :string(255)      default(""), not null
+#
+
 require "firebase_token_generator"
+require 'bcrypt'
 
 class User < ActiveRecord::Base
+  include ValidationPolicy
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_uniqueness_of :phone_number
+  
+  def self.build_user(opts={})
+    if(opts[:phone_number])
+      user = User.new
+      user.phone_number = opts[:phone_number]
+      user.password = opts[:password]
+      user.pin_code = opts[:pin_code]
+      return user
+    end
+    nil
+  end
 
-  before_create :created_user_notification
-  validate :validate_email, :on => :create
+  def self.generate_password
+    rand.to_s[2..9]
+  end
 
-  NEW_USER_NOTIFICATION = "last_created_user"
+  def self.generate_pin_code
+    rand.to_s[2..5]
+  end
+
+  def pin_code=(code)
+    self.encrypted_pin_code = BCrypt::Password.create(code)
+    @pin_code = code
+  end
+
+  def pin_code
+    @pin_code
+  end
+
+  def is_pin_code?(code)
+    BCrypt::Password.new(self.encrypted_pin_code) == code
+  end
 
   def email_required?
     false
   end
-
-  def created_user_notification
-    begin
-      generator = Firebase::FirebaseTokenGenerator.new(ENV['FIREBASE_SECRET'])
-      payload = {:uid => "1"}
-      token = generator.create_token(payload)
-      base_uri = ENV['FIREBASE_URI']
-      firebase = Firebase::Client.new(base_uri, token)
-      response = firebase.push(NEW_USER_NOTIFICATION, {
-        phone_number: self.phone_number,
-        created_at: Time.current
-      })
-    rescue => e
-      Rails.logger.error e.message
-    end
-  end
-
-  def validate_email
-    begin
-      if self.errors.size == 0 
-        @client = Twilio::REST::Client.new
-        @client.messages.create(
-          from: ENV['TWILIO_NUMBER'],
-          to: self.phone_number,
-          body: "Your key is #{self.password}"
-        )
-      end
-    rescue => e
-      self.errors.add(:phone_number, "The phone number is invalid")
-      Rails.logger.error e.message
-    end
-  end
+  
 end

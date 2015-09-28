@@ -20,9 +20,17 @@ module FirebaseTest
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # config.autoload_paths += %W(#{config.root}/app)
+    # config.eager_load_paths += Dir[ Rails.root.join('lib'),  Rails.root.join('app/models/user', '**/')]
+    # config.autoload_paths += Dir["#{config.root}/app/models/**/"]
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
     Twilio.configure do |config|
       config.account_sid = ENV['TWILIO_SID']
       config.auth_token = ENV['TWILIO_TOKEN']
     end
+
+    
+
   end
 end

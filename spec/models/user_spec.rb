@@ -19,10 +19,13 @@
 #  encrypted_pin_code     :string(255)      default(""), not null
 #
 
-require 'test_helper'
+require 'rails_helper'
 
-class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+RSpec.describe User, type: :model do
+  describe '#user_test' do
+    let!(:user) { create(:user)}
+    it "test" do
+      expect(User.count).to eq(1)
+    end 
+  end
 end

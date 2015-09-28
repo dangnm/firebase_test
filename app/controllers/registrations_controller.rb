@@ -9,6 +9,8 @@ class RegistrationsController < Devise::RegistrationsController
       password = "ab12cd12"
       self.resource.password = password;
       self.resource.password_confirmation = password;
+      self.resource.apply_validation_policy User::TwilioEmailValidationPolicy
+      self.resource.apply_validation_policy User::NewUserNotificationPolicy
     end
     
   end

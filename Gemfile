@@ -30,6 +30,8 @@ gem 'jquery-ui-rails', '~> 4.2.1'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+gem 'grape'
+
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
@@ -62,7 +64,17 @@ group :doc do
 end
 
 group :development, :test do
+  gem "rspec"
+  gem "rspec-rails", '~> 3.0'
   gem 'jasmine'
+  gem "faker", "~> 1.5.0"
+  gem 'factory_girl_rails', "~> 4.5.0"
+end
+
+group :test do
+  # automatically manage Spork DRb servers
+  # Collection of testing matchers extracted from Shoulda
+  gem 'database_cleaner'
 end
 
 # Use ActiveModel has_secure_password
@@ -76,3 +88,5 @@ end
 
 # Use debugger
 gem 'debugger', group: [:development, :test]
+
+gem 'annotate', group: [:development]

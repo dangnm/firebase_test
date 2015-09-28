@@ -19,10 +19,13 @@
 #  encrypted_pin_code     :string(255)      default(""), not null
 #
 
-require 'test_helper'
-
-class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+FactoryGirl.define do
+  factory :user do
+    phone_number Faker::PhoneNumber.cell_phone
+    # sequence :phone_number do |n|
+    #   "12345678{n}"
+    # end
+    password '12345678'
+    password_confirmation '12345678'
+  end
 end
