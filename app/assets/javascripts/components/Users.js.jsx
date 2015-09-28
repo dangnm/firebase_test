@@ -10,13 +10,16 @@ var Users = React.createClass({
 
   
     return (
-      <table className={"table"} >
-        <tr>
-          <th>Phone number</th>
-          <th>Joined time</th>
-        </tr>
-        {rows}
-      </table>
+      <div>
+        <NewUserNotifications />
+        <table className={"table"} >
+          <tr>
+            <th>Phone number</th>
+            <th>Joined time</th>
+          </tr>
+          {rows}
+        </table>
+      </div>
     );
   },
   componentWillMount: function() {
