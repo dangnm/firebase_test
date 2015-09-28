@@ -4,7 +4,7 @@ class FirebaseWrapper::Client
   NEW_USER_NOTIFICATION = "last_created_user"
   NEW_PRODUCT_NOTIFICATION = "last_created_product"
 
-  def self.send_created_user_notification(phone_number)
+  def self.send_created_user_notification(id, phone_number, created_at)
     begin
       generator = Firebase::FirebaseTokenGenerator.new(ENV['FIREBASE_SECRET'])
       payload = {:uid => "1"}
@@ -12,8 +12,9 @@ class FirebaseWrapper::Client
       base_uri = ENV['FIREBASE_URI']
       firebase = Firebase::Client.new(base_uri, token)
       response = firebase.push(NEW_USER_NOTIFICATION, {
+        id: id,
         phone_number: phone_number,
-        created_at: Time.current
+        created_at: created_at
       })
     rescue => e
       Rails.logger.error e.message

@@ -1,13 +1,13 @@
 var NewUserNotifications = React.createClass({
   mixins: [ReactFireMixin],
   getInitialState: function() {
-    return {message: "", hasNewItem: false};
+    return {id: "", phone_number: "", created_at: "", hasNewItem: false};
   },
   render: function() {
     var message_text = "";
     var hidden = "hidden";
-    if(typeof this.state.message != 'undefined' && this.state.message.length > 0) {
-      message_text = this.state.message + " has been registered"
+    if(typeof this.state.phone_number != 'undefined' && this.state.phone_number.length > 0) {
+      message_text = this.state.phone_number + " has been registered"
       hidden = "";
     }
   
@@ -23,8 +23,11 @@ var NewUserNotifications = React.createClass({
     this.firebaseRef.orderByChild("created_at").on("child_added", function(dataSnapshot) {
       if (!this.state.hasNewItem) return;
       this.setState({
-        message: dataSnapshot.val().phone_number
+        id: dataSnapshot.val().id,
+        phone_number: dataSnapshot.val().phone_number,
+        created_at: dataSnapshot.val().created_at,
       });
+      this.props.onNewUserAddedRealtime(dataSnapshot.val().id, dataSnapshot.val().phone_number, dataSnapshot.val().created_at);
     }.bind(this));
 
     this.firebaseRef.once('value', function(messages) {
@@ -37,7 +40,7 @@ var NewUserNotifications = React.createClass({
   }, 
   close: function() {
     this.setState({
-      message: ""
+      phone_number: ""
     });
   }
 

@@ -4,7 +4,7 @@ describe "Auth API", :type => :api do
   describe "POST /api/v1/auth/login" do
     before do 
       expect(TwilioWrapper::Client).to receive(:send_pin_code_sms).with("+849057799191", anything)
-      expect(FirebaseWrapper::Client).to receive(:send_created_user_notification).with("+849057799191")
+      expect(FirebaseWrapper::Client).to receive(:send_created_user_notification).with(anything, "+849057799191", anything)
     end
     let!(:user) { create(:user, :phone_number => "+849057799191", :pin_code => "1234") }
     before do 

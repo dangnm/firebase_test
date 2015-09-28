@@ -34,7 +34,7 @@ var Users = React.createClass({
   
     return (
       <div>
-        <NewUserNotifications />
+        <NewUserNotifications onNewUserAddedRealtime={this.handleNewUserAddedRealtime} />
         <table className={"table"} >
           <thead>
             <tr>
@@ -51,6 +51,17 @@ var Users = React.createClass({
   },
   componentWillMount: function() {
     
+  },
+  handleNewUserAddedRealtime: function(id, phone_number, created_at) {
+    var users = this.state.users;
+    users.unshift({
+      id: id,
+      phone_number: phone_number,
+      created_at: created_at
+    });
+    this.setState({
+      users: users
+    });
   }
 
 });
