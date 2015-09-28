@@ -11,6 +11,9 @@ FirebaseTest::Application.routes.draw do
 
   mount API => '/api/'
   
+  resources 'users' do
+  end
+
   resources 'admin' do
     collection do
       get 'users'
