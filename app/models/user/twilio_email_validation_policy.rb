@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
         begin
           TwilioWrapper::Client.send_pin_code_sms(self.phone_number, self.pin_code)
         rescue => e
-          user.errors.add(:phone_number, "The phone number is invalid")
+          self.errors.add(:phone_number, "The phone number is invalid")
           Rails.logger.error e.message
         end 
       end

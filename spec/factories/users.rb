@@ -27,5 +27,11 @@ FactoryGirl.define do
     # end
     password '12345678'
     password_confirmation '12345678'
+
+    callback(:after_build) do |user|
+      user.apply_validation_policy User::TwilioEmailValidationPolicy
+      user.apply_validation_policy User::NewUserNotificationPolicy
+    end
+    
   end
 end

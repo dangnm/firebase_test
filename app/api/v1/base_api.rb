@@ -10,6 +10,7 @@ module V1
       rack_response(format_message({ errors: { code: 404, message: e.message } }, []), 404)
     end
 
+    mount Auth
     mount UsersApi
   end
 

@@ -1,6 +1,6 @@
-require "spec_helper"
+require 'rails_helper'
 
-describe "Users API", :type => :api do
+RSpec.describe "Users API", :type => :api do
   describe "POST /api/v1/users" do
     before do
       expect(TwilioWrapper::Client).to receive(:send_pin_code_sms).with("+84905779919", anything)
@@ -13,7 +13,6 @@ describe "Users API", :type => :api do
     end
 
     it "should be added successfully" do
-      # @user = create(:user) 
       response_hash = JSON.parse(response.body)
       expect(response_hash["id"]).not_to be_nil
 

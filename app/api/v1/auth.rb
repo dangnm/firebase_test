@@ -8,12 +8,12 @@ module V1
       desc "Creates and returns access_token if valid login"
       params do
         requires :phone_number, :type => String, :desc => "Phone number"
-        requires :password, :type => String, :desc => "Password"
+        requires :pin_code, :type => String, :desc => "Password"
       end
       post :login do
         user = User.find_by_phone_number(params[:phone_number].downcase)
 
-        if user && user.valid_password?(params[:password])
+        if user && user.valid_pin_code?(params[:pin_code])
           key = ApiKey.create(:user_id => user.id)
           {:token => key.access_token}
         else

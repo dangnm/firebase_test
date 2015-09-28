@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
     @pin_code
   end
 
-  def is_pin_code?(code)
+  def valid_pin_code?(code)
     BCrypt::Password.new(self.encrypted_pin_code) == code
   end
 
