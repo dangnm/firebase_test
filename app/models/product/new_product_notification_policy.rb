@@ -2,7 +2,7 @@ class Product < ActiveRecord::Base
   module NewProductNotificationPolicy
     def self.included(base)
       base.class_eval do
-        before_create :created_product_notification_policy
+        after_create :created_product_notification_policy
       end
     end
 
